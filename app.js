@@ -69,11 +69,10 @@ function getPlots(id) {
 //create demoinfo function
 function getDemoInfo(id) {
 
-    // Read in samples.json using d3 library
-    var url = "/Users/matthewvicario/Desktop/Plot.ly-Challenge/Data/samples.json"
-    d3.json(url).then(sampleData =>{
+    // Read in data
+    d3.json(url).then((data) =>{
         // get metadata info
-        var metadata = sampleData.metadata;
+        var metadata = data.metadata;
         console.log(metadata)
 
         //use filter function by id
@@ -94,3 +93,23 @@ function optionChanged(id) {
     getDemoInfo(id);
 }
 
+// create the function for the initial data rendering
+function init() {
+    // select dropdown menu 
+    var dropdown = d3.select("#selDataset");
+
+    // read the data 
+    d3.json(url).then((data)=> {
+        console.log(data)
+
+        // get the id data to the dropdwown menu
+        data.names.forEach(function(name) {
+            dropdown.append("option").text(name).property("value");
+        });
+
+        // call the functions to display the data and the plots to the page
+        getPlots(data.names[0]);
+        getDemoInfo(data.names[0]);
+    });
+}
+init();
