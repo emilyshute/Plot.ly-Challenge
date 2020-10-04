@@ -29,4 +29,23 @@ d3.json(url).then(sampleData) => {
         orientation: 'h'
         color: 'blue'
     };
+
+    //plot layout
+    var data = [trace];
+
+    var layout = {
+        title: 'TOP 10 OTU'
+        x_axis: {title: 'Sample Values'}
+        y_axis: {title: 'OTU IDs'}
+    };
+
+    //creating the bar plot
+    Plotly.newPlot("bar", data, layout);
+
+
+    
+
+
+
+
 }
