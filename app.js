@@ -1,4 +1,4 @@
-//Import plot function
+//create plot function
 function getPlots(id) {
 
     // Read in samples.json using d3 library
@@ -65,3 +65,32 @@ function getPlots(id) {
      Plotly.newPlot("bubble", bub_data, bub_layout);
 });
 }
+
+//create demoinfo function
+function getDemoInfo(id) {
+
+    // Read in samples.json using d3 library
+    var url = "/Users/matthewvicario/Desktop/Plot.ly-Challenge/Data/samples.json"
+    d3.json(url).then(sampleData =>{
+        // get metadata info
+        var metadata = sampleData.metadata;
+        console.log(metadata)
+
+        //use filter function by id
+        var field = metadata.filter(meta => meta.id.toString() === id)[0];
+        
+        var demographicInfo = d3.select("#sample-metadata");
+        demographicInfo.html("");
+
+        Object.entries(field).forEach((key) => {
+            demographicInfo.append("h5").text(key[0].toUpperCase()+ ": " + key[1] + "\n");
+        });
+    });
+}
+
+// create option changed event
+function optionChanged(id) {
+    getPlots(id);
+    getDemoInfo(id);
+}
+
