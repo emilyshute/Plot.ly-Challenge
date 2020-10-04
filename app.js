@@ -24,7 +24,7 @@ function getPlots(id) {
         var labels = sampleData.samples[0].otu_labels.slice(0,10);
         console.log(`OTU IDs: ${labels}`)
 
-        //create trace
+        //create trace for bar
         var trace = {
             x: values,
             y: labels,
@@ -45,10 +45,23 @@ function getPlots(id) {
     //creating the bar plot
     Plotly.newPlot("bar", data, layout);
 
+    //create trace for bubble chart
+    var bub_trace = {
+        x: sampleData.samples[0].otu_ids,
+        y: sampleData.samples[0].sample_values,
+        text: sampleData.sample[0].otu_labels
+    };
 
+    //plot layout
+    var  bub_data = [bub_trace];
 
+    var bub_layout = {
+        title: 'OTU ID',
+        height: 400,
+        width: 700
+    };
 
-
-
-
+     //creating the bubble plot
+     Plotly.newPlot("bubble", bub_data, bub_layout);
+});
 }
